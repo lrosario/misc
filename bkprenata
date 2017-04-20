@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Script Backup Renata"
+bucket="s3://renata-bkp"
+data=$(date +%F)
+arquivobkp="$data.tgz"
+arquivo=`tar -c -p -v -z --exclude /var/www/lojinhadotaylor.com.br -f /bkp/$arquivobkp /var/www`
+s3cmd put $arquivobkp $bucket
+rm -rf $arquivobkp
